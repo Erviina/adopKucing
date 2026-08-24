@@ -6,7 +6,7 @@
     >
       <!-- Cat Image -->
       <img
-        src="/images/header/kucing-oren.png"
+        src="/images/Asset Login/kucing-oren.png"
         alt="Cat"
         class="absolute right-[45%] -top-30  h-50 object-contain"
       />
