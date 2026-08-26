@@ -8,7 +8,7 @@
         100% of your support goes directly to the welfare of our feline friends.
       </p>
       <img
-        src="/images/home/Cat 9.jpg"
+        src="images/home/Cat 9.jpg"
         alt="Happy cat"
         class="mx-auto rounded-2xl shadow-lg w-full max-w-xl object-cover"
       />
@@ -136,17 +136,17 @@ const impacts = [
   {
     title: '50+ Cats Rescued',
     desc: 'We’ve successfully rescued more than 50 cats this year from dangerous environments.',
-    image: '/images/home/Cat 9.jpg',
+    image: 'images/home/Cat 9.jpg',
   },
   {
     title: 'Healthy Meals Daily',
     desc: 'Your donations provide food for our rescued cats every single day.',
-    image: '/images/home/Cat 9.jpg',
+    image: 'images/home/Cat 9.jpg',
   },
   {
     title: 'Medical Care',
     desc: 'Donations help cover vaccination, sterilization, and emergency vet treatments.',
-    image: '/images/home/Cat 9.jpg',
+    image: 'images/home/Cat 9.jpg',
   },
 ]
 

@@ -9,7 +9,7 @@
     <div class="contact-container">
       
       <div class="contact-card">
-        <img src="/images/contactus/rumah.png" alt="rumah" class="contact-img" />
+        <img src="images/contactus/rumah.png" alt="rumah" class="contact-img" />
         <div class="text-content">
           <h3>Location</h3>
           <p>Street Bandung</p>
@@ -17,7 +17,7 @@
       </div>
 
       <div class="contact-card">
-        <img src="/images/contactus/ig.png" alt="ig" class="contact-img" />
+        <img src="images/contactus/ig.png" alt="ig" class="contact-img" />
         <div class="text-content">
           <h3>Instagram</h3>
           <p>@adoptCenter.co</p>
@@ -25,7 +25,7 @@
       </div>
 
       <div class="contact-card">
-        <img src="/images/contactus/wa.png" alt="wa" class="contact-img" />
+        <img src="images/contactus/wa.png" alt="wa" class="contact-img" />
         <div class="text-content">
           <h3>What’s App</h3>
           <p>+628099999999</p>
@@ -33,7 +33,7 @@
       </div>
 
       <div class="contact-card">
-        <img src="/images/contactus/gmail.png" alt="gmail" class="contact-img" />
+        <img src="images/contactus/gmail.png" alt="gmail" class="contact-img" />
         <div class="text-content">
           <h3>Email</h3>
           <p>@Adopt.center.co</p>
