@@ -28,7 +28,7 @@
     <h2 class="title">ADOPT UR KITTEN HERE</h2>
     
     <button class="cat-button" @click="goToAdoptDetail">
-      <img :src="'images/home/cat-button.png'" alt="adopt-now" />
+      <img :src="withBase('images/home/cat-button.png')" alt="adopt-now" />
     </button>
 
     <div class="more-button-container">
@@ -44,6 +44,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination } from 'swiper/modules';
+import { withBase } from '@/utils/paths'
 
 // Import style Swiper
 import 'swiper/css';

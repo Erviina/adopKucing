@@ -82,12 +82,15 @@
 <script setup>
 import { ref } from "vue"
 import NewsModal from "../components/NewsPopUp.vue"
+import { withBase } from '@/utils/paths'
+
+const newsImage = withBase('images/home/Cat 9.jpg')
 
 const newsList = ref([
   {
     title: "Ada Kucing Kece",
     desc: "Kucing ini baru saja memenangkan lomba kecantikan hewan tingkat nasional.",
-    image: "/images/home/Cat 9.jpg",
+    image: newsImage,
     likes: 20,
     isLiked: false,
     comments: [
@@ -100,7 +103,7 @@ const newsList = ref([
   {
     title: "Kucing Diselamatkan dari Pohon",
     desc: "Seekor kucing berhasil diselamatkan oleh tim damkar setelah terjebak dua hari.",
-    image: "/images/home/Cat 9.jpg",
+    image: newsImage,
     likes: 54,
     isLiked: false,
     comments: [{ user: "Luna", text: "Terima kasih pahlawan damkar!", likes: 3 }],

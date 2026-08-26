@@ -152,7 +152,7 @@
     <!-- Kucing dekorasi -->
     <div class="fixed bottom-0 right-0 z-50">
       <img
-        src="/images/report-rescue/sherlock-cat.png"
+        :src="withBase('images/report-rescue/sherlock-cat.png')"
         alt="Kucing Sherlock"
         class="w-56 h-auto object-cover"
       />
@@ -162,6 +162,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import { withBase } from '@/utils/paths'
 
 const form = ref({
   photos: [],

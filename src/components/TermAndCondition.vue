@@ -53,7 +53,6 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const goToAdoptForm = () => {
-  // Assuming the route for the adoption form is '/adopt-now'
-  router.push("/adopt-now");
+  router.push("/adoption");
 };
 </script>

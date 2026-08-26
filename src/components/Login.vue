@@ -6,7 +6,7 @@
     >
       <!-- Cat Image -->
       <img
-        :src="'images/Asset Login/kucing-oren.png'"
+        :src="withBase('images/Asset Login/kucing-oren.png')"
         alt="Cat"
         class="absolute right-[45%] -top-30  h-50 object-contain"
       />
@@ -51,6 +51,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { withBase } from '@/utils/paths'
 
 const router = useRouter()
 const username = ref('')

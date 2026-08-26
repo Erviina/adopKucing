@@ -8,12 +8,12 @@
         </h1>
         <p class="text-black mt-2 text-xs sm:text-sm md:text-base lg:text-lg">
           Get the latest stories from our cat community,
-          <a
-            href="/news"
-                  class="py-1.5 px-2 border-2 rounded-full border-[#ED8B3C] bg-[#ED8B3C] text-white hover:brightness-90 transition-all"
-                >
-                  More News...
-          </a>
+          <RouterLink
+            to="/news"
+            class="py-1.5 px-2 border-2 rounded-full border-[#ED8B3C] bg-[#ED8B3C] text-white hover:brightness-90 transition-all"
+          >
+            More News...
+          </RouterLink>
         </p>
       </div>
 
@@ -111,12 +111,15 @@
 <script setup>
 import { ref } from 'vue'
 import NewsModal from './NewsPopUp.vue'
+import { withBase } from '@/utils/paths'
+
+const newsImage = withBase('images/home/Cat 9.jpg')
 
 const newsList = ref([
   {
     title: 'Ada Kucing Kece',
     desc: 'Kucing ini baru saja memenangkan lomba kecantikan hewan tingkat nasional. Ia dikenal karena bulunya yang lembut dan tingkahnya yang menggemaskan.',
-    image: 'images/home/Cat 9.jpg',
+    image: newsImage,
     likes: 20,
     comments: [{ user: 'Mia', text: 'Lucunyaaa 😻', likes: 2 }],
     reactions: {},
@@ -124,7 +127,7 @@ const newsList = ref([
   {
     title: 'Kucing Diselamatkan dari Pohon',
     desc: 'Seekor kucing berhasil diselamatkan oleh tim damkar setelah terjebak di atas pohon selama dua hari.',
-    image: 'images/home/Cat 9.jpg',
+    image: newsImage,
     likes: 54,
     comments: [{ user: 'Luna', text: 'Terima kasih pahlawan damkar!', likes: 3 }],
     reactions: {},
@@ -132,7 +135,7 @@ const newsList = ref([
   {
     title: 'Kucing Baru di Shelter',
     desc: 'Shelter kami baru kedatangan kucing kecil lucu berumur 2 bulan yang sedang mencari rumah baru.',
-    image: 'images/home/Cat 9.jpg',
+    image: newsImage,
     likes: 13,
     comments: [],
     reactions: {},
@@ -140,7 +143,7 @@ const newsList = ref([
   {
     title: 'Festival Kucing Tahunan',
     desc: 'Event besar untuk para pecinta kucing digelar minggu ini, menghadirkan puluhan ras dan atraksi unik.',
-    image: 'images/home/Cat 9.jpg',
+    image: newsImage,
     likes: 89,
     comments: [{ user: 'Dina', text: 'Seru banget tahun lalu!', likes: 1 }],
     reactions: {},

@@ -1,16 +1,16 @@
 <template>
   <section
   class="relative flex items-center justify-center bg-no-repeat bg-contain bg-center py-10 px-4 overflow-visible"
-  :style="{ backgroundImage: `url('images/vector/Background Report.png')`, backgroundColor: '#f7f1e8', minHeight: '120vh' }"
+  :style="{ backgroundImage: `url('${withBase('images/vector/Background Report.png')}')`, backgroundColor: '#f7f1e8', minHeight: '120vh' }"
 >
     <!-- Kucing kiri kanan -->
     <img
-      :src="'images/home/kucing_kiri_report.png'"
+      :src="withBase('images/home/kucing_kiri_report.png')"
       alt="Kucing kiri"
       class="hidden md:block absolute left-0 top-20 h-[70%] object-contain pointer-events-none"
     />
     <img
-      :src="'images/home/kucing_kanan_report.png'"
+      :src="withBase('images/home/kucing_kanan_report.png')"
       alt="Kucing kanan"
       class="hidden md:block absolute right-0 top-20 h-[70%] object-contain pointer-events-none "
     />
@@ -22,14 +22,14 @@
       </h1>
 
       <img
-        :src="'images/home/kucing-report-button.png'"
+        :src="withBase('images/home/kucing-report-button.png')"
         alt="Kucing tombol"
         class="w-36 sm:w-44 lg:w-52 mx-auto absolute top-[37%]"
       />
 
       <div class="relative inline-flex items-center mt-30">
         <img
-          :src="'images/vector/Vector.svg'"
+          :src="withBase('images/vector/Vector.svg')"
           alt="Magnifying glass"
           class="absolute left-0 -ml-10 top-1/2 -translate-y-1/2 w-15 sm:w-10"
         />
@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-// Tidak perlu JS untuk bagian ini
+import { withBase } from '@/utils/paths'
 </script>
 
 <style scoped></style>

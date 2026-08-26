@@ -85,24 +85,25 @@
 import Navbar from '@/components/navbar.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { withBase } from '@/utils/paths'
 
 const router = useRouter()
 
 //Background dan Gambar
-const backgroundImage = '/src/assets/fish.png'
-const catImage = 'images/Asset Signup/kucing-report-button.png'
+const backgroundImage = withBase('images/home/Vector.svg')
+const catImage = withBase('images/Asset Signup/kucing-report-button.png')
 
 // Data tombol social media
 const socialButtons = [
   {
     name: 'google',
     label: 'Sign up with Google',
-    icon: 'images/Asset Signup/google-removebg-preview.png'
+    icon: withBase('images/Asset Signup/google-removebg-preview.png')
   },
   {
     name: 'facebook',
     label: 'Sign up with Facebook',
-    icon: 'images/Asset Signup/facebook-removebg-preview.png'
+    icon: withBase('images/Asset Signup/facebook-removebg-preview.png')
   }
 ]
 

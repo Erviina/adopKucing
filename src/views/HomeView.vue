@@ -25,7 +25,7 @@
   <!-- Gambar kanan -->
   <div class="w-full lg:w-1/2 flex justify-center lg:justify-end m-0 p-0">
       <img
-        :src="'images/home/vector.png'"
+        :src="withBase('images/home/vector.png')"
         alt="Cat"
         class="hero-cat-image w-full lg:w-auto lg:h-screen object-contain lg:object-cover m-0 p-0"
       />
@@ -47,6 +47,7 @@ import ReportKitten from '@/components/ReportKitten.vue';
 import FAQ from '@/components/FAQ.vue';
 import ContactUs from '@/components/ContactUs.vue';
 import AboutUs from '@/components/AboutUs.vue';
+import { withBase } from '@/utils/paths'
   // (@ adalah shortcut untuk folder 'src')
 </script>
 

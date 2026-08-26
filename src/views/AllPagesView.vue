@@ -36,9 +36,8 @@
 
     <div class="w-full max-w-md space-y-4">
       <div v-for="link in links" :key="link.id" class="relative">
-        <a
-          :href="link.url"
-          target="_blank"
+        <router-link
+          :to="link.url"
           class="flex items-center w-full p-4 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition duration-300 relative overflow-hidden"
           :class="{
             'h-20': link.type === 'featured',
@@ -60,24 +59,24 @@
           <svg class="w-5 h-5 text-gray-400 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
           </svg>
-        </a>
+        </router-link>
       </div>
     </div>
   </main>
 
   <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white shadow-2xl border-t border-gray-100">
     <div class="max-w-xl mx-auto flex justify-around items-center h-16 sm:h-20 px-4">
-      <a 
+      <router-link 
         v-for="item in navItems" 
         :key="item.name" 
-        :href="item.route" 
+        :to="item.route" 
         class="flex flex-col items-center justify-center p-2 text-gray-500 hover:text-gray-900 transition-colors"
       >
         <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="item.iconPath" />
         </svg>
         <span class="text-xs font-medium mt-1 hidden sm:block">{{ item.name }}</span>
-      </a>
+      </router-link>
     </div>
   </nav>
 </template>

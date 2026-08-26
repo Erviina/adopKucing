@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { withBase } from '@/utils/paths'
 
 // data profil
 const user = ref({
@@ -58,13 +59,13 @@ function cancelEdit() {
   <div class="profile-container mt-15">
     <div class="profile-card">
       <!-- kucing -->
-      <img src="/images/vector/kucingsetengah.PNG" class="cat-img" />
+      <img :src="withBase('images/vector/kucingsetengah.PNG')" class="cat-img" />
 
       <!-- header kuning -->
       <div class="profile-header">
         <h1 class="title">User Profile</h1>
         <div class="profile-pic">
-          <img src="/images/vector/gabriel.svg" />
+          <img :src="withBase('images/vector/gabriel.svg')" />
           <p class="caption">Profile Picture</p>
         </div>
       </div>
