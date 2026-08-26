@@ -10,7 +10,7 @@
         <!-- Brand -->
         <router-link to="/" class="flex items-center space-x-2">
           <img
-            src="images/navbar/logoKucing.png"
+            :src="'images/navbar/logoKucing.png'"
             alt="Logo"
             class="h-10 w-10 rounded-full bg-gray-200 object-contain"
           />
@@ -57,7 +57,7 @@
           <template v-else-if="isLoggedIn">
             <div class="relative group flex items-center space-x-2">
               <img
-                src="images/home/Cat 9.jpg"
+                :src="'images/home/Cat 9.jpg'"
                 alt="User"
                 class="h-8 w-8 rounded-full bg-gray-300 object-cover cursor-pointer"
               />
