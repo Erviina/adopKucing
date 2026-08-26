@@ -54,13 +54,15 @@
             :key="method.name"
             @click="selectedMethod = method.name"
             :class="[
-              'px-5 py-3 rounded-xl border transition font-medium',
+              'px-5 py-3 rounded-xl border transition font-medium flex items-center justify-center gap-2',
               selectedMethod === method.name
-                ? 'bg-blue-600 text-white border-blue-600'
-                : 'hover:bg-blue-50 border-gray-300 text-gray-700'
+                ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                : 'hover:bg-blue-50 border-gray-300 text-gray-700 bg-white'
             ]"
           >
-            <img :src="method.icon" alt="icon" class="inline-block w-6 h-6 mr-2 align-middle" />
+            <span class="w-10 h-6 rounded flex items-center justify-center text-[10px] font-bold tracking-wider" :class="getMethodBadgeClass(method.name, selectedMethod === method.name)">
+              {{ method.badgeText }}
+            </span>
             {{ method.label }}
           </button>
         </div>
@@ -109,29 +111,42 @@ const finalAmount = computed(() => customAmount.value || selectedAmount.value)
 
 // payment methods
 const paymentMethods = [
-  { name: 'qris', label: 'QRIS', icon: '/images/icons/qris.svg' },
-  { name: 'bca', label: 'BCA Transfer', icon: '/images/icons/bank.svg' },
-  { name: 'gopay', label: 'GoPay', icon: '/images/icons/gopay.svg' },
-  { name: 'ovo', label: 'OVO', icon: '/images/icons/ovo.svg' },
+  { name: 'qris', label: 'QRIS', badgeText: 'QRIS' },
+  { name: 'bca', label: 'BCA Transfer', badgeText: 'BCA' },
+  { name: 'gopay', label: 'GoPay', badgeText: 'GPY' },
+  { name: 'ovo', label: 'OVO', badgeText: 'OVO' },
 ]
 const selectedMethod = ref(null)
+
+const getMethodBadgeClass = (name, isSelected) => {
+  if (isSelected) {
+    return 'bg-white/20 text-white border border-white/40'
+  }
+  switch (name) {
+    case 'qris': return 'bg-red-100 text-red-700 border border-red-200'
+    case 'bca': return 'bg-blue-100 text-blue-700 border border-blue-200'
+    case 'gopay': return 'bg-green-100 text-green-700 border border-green-200'
+    case 'ovo': return 'bg-purple-100 text-purple-700 border border-purple-200'
+    default: return 'bg-gray-100 text-gray-700 border border-gray-200'
+  }
+}
 
 // our impact cards
 const impacts = [
   {
     title: '50+ Cats Rescued',
     desc: 'We’ve successfully rescued more than 50 cats this year from dangerous environments.',
-    image: '/images/header/Cat 9.jpg',
+    image: '/images/home/Cat 9.jpg',
   },
   {
     title: 'Healthy Meals Daily',
     desc: 'Your donations provide food for our rescued cats every single day.',
-    image: '/images/header/Cat 9.jpg',
+    image: '/images/home/Cat 9.jpg',
   },
   {
     title: 'Medical Care',
     desc: 'Donations help cover vaccination, sterilization, and emergency vet treatments.',
-    image: '/images/header/Cat 9.jpg',
+    image: '/images/home/Cat 9.jpg',
   },
 ]
 

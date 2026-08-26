@@ -285,8 +285,15 @@ const catList = ref([
   },
 ])
 
-const breeds = ["Semua Ras", "Persian", "Shorthair"]
-const locations = ["Semua Lokasi", "Bandung", "Cimahi", "Jakarta Utara"]
+const breeds = computed(() => {
+  const allBreeds = catList.value.map((cat) => cat.breed)
+  return ["Semua Ras", ...new Set(allBreeds)]
+})
+
+const locations = computed(() => {
+  const allLocations = catList.value.map((cat) => cat.location)
+  return ["Semua Lokasi", ...new Set(allLocations)]
+})
 
 const filteredCats = computed(() =>
   catList.value.filter(

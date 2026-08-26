@@ -82,7 +82,7 @@
 </template>
 
 <script setup>
-import Navbar from '@/components/Navbar.vue'
+import Navbar from '@/components/navbar.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 

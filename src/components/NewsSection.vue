@@ -103,7 +103,7 @@
       :index="selectedIndex"
       v-if="modalVisible && selectedIndex !== null"
       @close="onModalClose"
-      @update-news="onModalUpdate"
+      @update-news="updatedNews => onModalUpdate(selectedIndex, updatedNews)"
     />
   </section>
 </template>
@@ -175,7 +175,7 @@ function addReaction(index, emoji) {
   n.reactions[emoji] = (n.reactions[emoji] || 0) + 1
 }
 
-function onModalUpdate({ index, updatedNews }) {
+function onModalUpdate(index, updatedNews) {
   newsList.value[index] = { ...updatedNews }
 }
 </script>

@@ -25,4 +25,9 @@ export default defineConfig([
   ...pluginVue.configs['flat/essential'],
   ...pluginOxlint.configs['flat/recommended'],
   skipFormatting,
+  {
+    rules: {
+      'vue/multi-word-component-names': 'off'
+    }
+  }
 ])

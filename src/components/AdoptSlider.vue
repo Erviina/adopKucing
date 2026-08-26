@@ -11,7 +11,7 @@
       @realIndexChange="onRealIndexChange"
     >
       <SwiperSlide
-        v-for="(kitten, index) in kittens"
+        v-for="kitten in kittens"
         :key="kitten.id" 
         class="kitten-slide"
       >
@@ -55,11 +55,11 @@ const currentRealIndex = ref(0); // State untuk menyimpan index slide aktif
 
 // Data Kittens dengan ID unik
 const kittens = [
-  { id: 101, name: 'Miawi', age: '2 Tahun', image: '/images/miawi.jpg' },
-  { id: 102, name: 'Puff', age: '1 Tahun', image: '/images/puff.jpg' },
-  { id: 103, name: 'Coco', age: '3 Bulan', image: '/images/coco.jpg' },
-  { id: 104, name: 'Lulu', age: '8 Bulan', image: '/images/lulu.jpg' },
-  { id: 105, name: 'Neko', age: '6 Bulan', image: '/images/neko.jpg' },
+  { id: 1, name: 'Milo', age: '7 Bulan', image: 'https://i.imgur.com/Gj3Hj0c.jpg' },
+  { id: 2, name: 'Luna', age: '1 Tahun', image: 'https://i.imgur.com/s7ZzvED.jpg' },
+  { id: 3, name: 'Oreo', age: '5 Bulan', image: 'https://i.imgur.com/jf2rFj3.jpg' },
+  { id: 4, name: 'Simba', age: '2 Tahun', image: 'https://i.imgur.com/szU2Q7I.jpg' },
+  { id: 5, name: 'Nala', age: '9 Bulan', image: 'https://i.imgur.com/6rRZQlx.jpg' },
 ];
 
 // Event handler saat slide berubah (loop-compatible)

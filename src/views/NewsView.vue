@@ -134,7 +134,10 @@ const openPopup = (news) => {
 }
 
 const handleUpdateNews = (updated) => {
-  // bisa di-sync ke backend di sini nanti
-  console.log("Updated news:", updated)
+  const index = newsList.value.findIndex((n) => n.title === updated.title)
+  if (index !== -1) {
+    newsList.value[index] = { ...updated }
+    selectedNews.value = { ...updated }
+  }
 }
 </script>

@@ -10,10 +10,10 @@
         We take care of stray cats and treat them so you can adopt them safely.
       </p>
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-5 justify-center lg:justify-start">
-        <a href="/adoption"
+        <router-link to="/adoption"
            class="px-6 py-2 bg-[#ED8B3C] text-white font-semibold rounded-lg hover:bg-orange-600 transition-all shadow-md">
           Adopt
-        </a>
+        </router-link>
         <a href="javascript:void(0)"
            class="text-[#ED8B3C] font-medium hover:text-orange-600">
           Join our community

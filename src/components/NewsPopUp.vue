@@ -49,7 +49,7 @@
         <!-- Input Komentar -->
         <div class="border-t border-gray-200 p-3 flex">
           <input
-            v-model="news.newComment"
+            v-model="localCommentText"
             @keyup.enter="addComment"
             placeholder="Tulis komentar..."
             class="flex-1 border border-gray-300 rounded-l-md px-3 py-1 text-sm focus:outline-none"
@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue"
+import { defineProps, defineEmits, ref } from "vue"
 
 const props = defineProps({
   visible: Boolean,
@@ -76,26 +76,43 @@ const props = defineProps({
 
 const emit = defineEmits(["close", "update-news"])
 
+const localCommentText = ref("")
+
 // Tutup modal
 const emitClose = () => emit("close")
 
 // Tambah komentar
 const addComment = () => {
-  if (props.news && props.news.newComment?.trim() !== "") {
-    props.news.comments.push({
-      user: "Kamu",
-      text: props.news.newComment,
-      likes: 0,
+  if (props.news && localCommentText.value.trim() !== "") {
+    const updatedComments = [
+      ...(props.news.comments || []),
+      {
+        user: "Kamu",
+        text: localCommentText.value.trim(),
+        likes: 0,
+      }
+    ]
+    emit("update-news", {
+      ...props.news,
+      comments: updatedComments
     })
-    props.news.newComment = ""
-    emit("update-news", props.news)
+    localCommentText.value = ""
   }
 }
 
 // Like komentar
 const toggleCommentLike = (comment) => {
-  comment.likes += 1
-  emit("update-news", props.news)
+  if (!props.news || !props.news.comments) return
+  const updatedComments = props.news.comments.map((c) => {
+    if (c.user === comment.user && c.text === comment.text) {
+      return { ...c, likes: c.likes + 1 }
+    }
+    return c
+  })
+  emit("update-news", {
+    ...props.news,
+    comments: updatedComments
+  })
 }
 </script>
 

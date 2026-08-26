@@ -168,16 +168,20 @@ const handleScroll = () => {
   lastScrollY.value = currentY
 }
 
-onMounted(() => {
+const checkLoginState = () => {
   const stored = localStorage.getItem('isLoggedIn')
-  if (stored !== null) {
-    isLoggedIn.value = stored === 'true'
-  }
+  isLoggedIn.value = stored === 'true'
+}
+
+onMounted(() => {
+  checkLoginState()
   window.addEventListener('scroll', handleScroll)
+  window.addEventListener('login-state-changed', checkLoginState)
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('login-state-changed', checkLoginState)
 })
 
 const isAuthPage = computed(() => ['/login', '/sign-up'].includes(route.path))
