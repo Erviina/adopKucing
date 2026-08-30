@@ -98,73 +98,69 @@
 
 
     <!-- Services / Fitur Utama Section -->
-    <section class="py-16 bg-white border-y border-[#E9E0D5]">
+    <section class="services-section py-12 sm:py-14 lg:py-16 bg-white border-y border-[#E9E0D5]">
       <div class="container-custom">
-        <div class="text-center max-w-2xl mx-auto mb-12">
-          <h2 class="text-2xl sm:text-3xl font-bold text-[#2D2926] mb-3">Layanan & Fitur Utama</h2>
+        <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10 lg:mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-[#2D2926] mb-3">Layanan &amp; Fitur Utama</h2>
           <p class="text-[#77716B] text-sm sm:text-base">
             Satu tempat untuk penanganan, adopsi, dan bantuan penyelamatan kucing jalanan.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="card-custom p-6 flex flex-col justify-between hover:-translate-y-1 transition duration-300">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-[#FFF0E4] text-[#E9823D] flex items-center justify-center text-2xl mb-4">
-                🐱
-              </div>
-              <h3 class="text-lg font-bold text-[#2D2926] mb-2">Adopsi Kucing</h3>
-              <p class="text-sm text-[#77716B] leading-relaxed mb-4">
-                Jelajahi kucing rescue yang telah divaksin dan steril, siap menyambut keluarga baru.
-              </p>
+        <div class="services-grid">
+          <!-- Card 1: Adopsi Kucing -->
+          <div class="service-card card-custom">
+            <div class="service-card__icon-wrap bg-[#FFF0E4] text-[#E9823D]">
+              🐱
             </div>
-            <router-link to="/adoption" class="text-sm font-semibold text-[#E9823D] hover:text-[#C96A29] inline-flex items-center gap-1">
-              Lihat Katalog &rarr;
+            <h3 class="service-card__title">Adopsi Kucing</h3>
+            <p class="service-card__desc">
+              Jelajahi kucing rescue yang telah divaksin dan steril, siap menyambut keluarga baru.
+            </p>
+            <router-link to="/adoption" class="service-card__link text-[#E9823D] hover:text-[#C96A29]">
+              Lihat Katalog →
             </router-link>
           </div>
 
-          <div class="card-custom p-6 flex flex-col justify-between hover:-translate-y-1 transition duration-300">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-red-50 text-red-500 flex items-center justify-center text-2xl mb-4">
-                🚨
-              </div>
-              <h3 class="text-lg font-bold text-[#2D2926] mb-2">Report & Rescue</h3>
-              <p class="text-sm text-[#77716B] leading-relaxed mb-4">
-                Temukan kucing jalanan yang terluka atau butuh bantuan? Laporkan lokasi secara mudah.
-              </p>
+          <!-- Card 2: Report & Rescue -->
+          <div class="service-card card-custom">
+            <div class="service-card__icon-wrap bg-red-50 text-red-500">
+              🚨
             </div>
-            <router-link to="/report-rescue" class="text-sm font-semibold text-red-600 hover:text-red-700 inline-flex items-center gap-1">
-              Buat Laporan &rarr;
+            <h3 class="service-card__title">Report &amp; Rescue</h3>
+            <p class="service-card__desc">
+              Temukan kucing jalanan yang terluka atau butuh bantuan? Laporkan lokasi secara mudah.
+            </p>
+            <router-link to="/report-rescue" class="service-card__link text-red-600 hover:text-red-700">
+              Buat Laporan →
             </router-link>
           </div>
 
-          <div class="card-custom p-6 flex flex-col justify-between hover:-translate-y-1 transition duration-300">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-emerald-50 text-[#3D9B6D] flex items-center justify-center text-2xl mb-4">
-                ❤️
-              </div>
-              <h3 class="text-lg font-bold text-[#2D2926] mb-2">Donasi Kasih</h3>
-              <p class="text-sm text-[#77716B] leading-relaxed mb-4">
-                Bantu biaya obat, makanan berkarbohidrat tinggi, dan sterilisasi gratis untuk kucing rescue.
-              </p>
+          <!-- Card 3: Donasi Kasih -->
+          <div class="service-card card-custom">
+            <div class="service-card__icon-wrap bg-emerald-50 text-[#3D9B6D]">
+              ❤️
             </div>
-            <router-link to="/donate" class="text-sm font-semibold text-[#3D9B6D] hover:text-emerald-700 inline-flex items-center gap-1">
-              Salurkan Donasi &rarr;
+            <h3 class="service-card__title">Donasi Kasih</h3>
+            <p class="service-card__desc">
+              Bantu biaya obat, makanan, dan sterilisasi gratis untuk kucing rescue.
+            </p>
+            <router-link to="/donate" class="service-card__link text-[#3D9B6D] hover:text-emerald-700">
+              Salurkan Donasi →
             </router-link>
           </div>
 
-          <div class="card-custom p-6 flex flex-col justify-between hover:-translate-y-1 transition duration-300">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-amber-50 text-[#D99A2B] flex items-center justify-center text-2xl mb-4">
-                📰
-              </div>
-              <h3 class="text-lg font-bold text-[#2D2926] mb-2">Berita & Komunitas</h3>
-              <p class="text-sm text-[#77716B] leading-relaxed mb-4">
-                Dapatkan kabar terkini, cerita penyelamatan, serta edukasi seputar perawatan kucing.
-              </p>
+          <!-- Card 4: Berita & Komunitas -->
+          <div class="service-card card-custom">
+            <div class="service-card__icon-wrap bg-amber-50 text-[#D99A2B]">
+              📰
             </div>
-            <router-link to="/news" class="text-sm font-semibold text-[#D99A2B] hover:text-amber-700 inline-flex items-center gap-1">
-              Baca Berita &rarr;
+            <h3 class="service-card__title">Berita &amp; Komunitas</h3>
+            <p class="service-card__desc">
+              Dapatkan kabar terkini, cerita penyelamatan, serta edukasi seputar perawatan kucing.
+            </p>
+            <router-link to="/news" class="service-card__link text-[#D99A2B] hover:text-amber-700">
+              Baca Berita →
             </router-link>
           </div>
         </div>
@@ -310,5 +306,127 @@ import { withBase } from '@/utils/paths'
 }
 .animate-float-delayed {
   animation: floatUpDelayed 4s ease-in-out 1.2s infinite;
+}
+
+/* ===================================================
+   SERVICES / FEATURE CARDS
+=================================================== */
+
+/* Grid: default 1 col → 2 col @480px → 4 col @1024px */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+/* 2 kolom mulai 480px (sudah cukup lebar untuk card readable) */
+@media (min-width: 480px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+/* 4 kolom hanya ab 1024px (desktop) */
+@media (min-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* === Card === */
+.service-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  /* Pastikan card tidak overflow container */
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .service-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .service-card {
+    padding: 1.5rem;
+  }
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+}
+
+/* === Icon Wrap === */
+.service-card__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.75rem;
+  font-size: 1.375rem;
+  flex-shrink: 0;
+  margin-bottom: 0.875rem;
+}
+
+/* === Title === */
+.service-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2D2926;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+  /* Cegah kata pecah per karakter */
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+@media (min-width: 1024px) {
+  .service-card__title {
+    font-size: 1.0625rem;
+  }
+}
+
+/* === Description === */
+.service-card__desc {
+  font-size: 0.8125rem;
+  color: #77716B;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+  /* Natural word wrapping — TIDAK break-all */
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+@media (min-width: 768px) {
+  .service-card__desc {
+    font-size: 0.875rem;
+  }
+}
+
+/* === Link === */
+.service-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: auto;
+  transition: opacity 0.2s ease;
+  /* Jangan biarkan link wrap antar kata secara aneh */
+  white-space: nowrap;
+}
+
+.service-card__link:hover {
+  opacity: 0.8;
 }
 </style>
