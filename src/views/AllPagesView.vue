@@ -191,7 +191,7 @@ const linkStyle = (type) => {
 };
 
 const trackClick = (id) => {
-  console.log(`Link ID ${id} clicked.`);
+  // tracked
 };
 </script>
 

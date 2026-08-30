@@ -1,208 +1,136 @@
 <template>
-  <div class="adopt-slider">
-    <Swiper
-      :modules="[Navigation, Pagination]"
-      :slides-per-view="3"
-      :centered-slides="true"
-      :loop="true"
-      navigation
-      pagination
-      class="mySwiper"
-      @realIndexChange="onRealIndexChange"
-    >
-      <SwiperSlide
-        v-for="kitten in kittens"
-        :key="kitten.id" 
-        class="kitten-slide"
-      >
-        <div class="kitten-card">
-          <img :src="kitten.image" :alt="kitten.name" />
-          <div class="kitten-info">
-            <p class="age">{{ kitten.age }}</p>
-            <h3 class="name">{{ kitten.name }}</h3>
-          </div>
+  <section class="py-16 bg-[#F8F3EA] border-t border-[#E9E0D5]">
+    <div class="container-custom max-w-6xl">
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 bg-[#FFF0E4] border border-[#E9E0D5] rounded-full text-[#C96A29] text-xs font-semibold uppercase tracking-wider mb-2">
+          🐱 Katalog Pilihan
         </div>
-      </SwiperSlide>
-    </Swiper>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#2D2926] mb-2">
+          Kucing Siap Adopsi 🐱
+        </h2>
+        <p class="text-[#77716B] text-sm sm:text-base">
+          Geser dan temukan kucing impianmu yang siap diadopsi hari ini.
+        </p>
+      </div>
 
-    <h2 class="title">ADOPT UR KITTEN HERE</h2>
-    
-    <button class="cat-button" @click="goToAdoptDetail">
-      <img :src="withBase('images/home/cat-button.png')" alt="adopt-now" />
-    </button>
+      <!-- Swiper Slider -->
+      <Swiper
+        :modules="[Navigation, Pagination, Autoplay]"
+        :slides-per-view="1"
+        :space-between="20"
+        :breakpoints="{
+          640: { slidesPerView: 2, spaceBetween: 24 },
+          1024: { slidesPerView: 3, spaceBetween: 24 }
+        }"
+        :autoplay="{ delay: 4000, disableOnInteraction: false }"
+        navigation
+        pagination
+        class="mySwiper !pb-12"
+      >
+        <SwiperSlide
+          v-for="kitten in kittens"
+          :key="kitten.id"
+          class="h-auto"
+        >
+          <div
+            class="card-custom bg-white overflow-hidden flex flex-col justify-between h-full border border-[#E9E0D5] hover:shadow-lg transition-all duration-300 group cursor-pointer"
+            @click="goToAdoptDetailById(kitten.id)"
+          >
+            <!-- Photo & Status Badge -->
+            <div class="relative h-56 w-full overflow-hidden bg-gray-100 flex-shrink-0">
+              <img
+                :src="kitten.imageUrl"
+                :alt="kitten.name"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <span
+                class="absolute top-3 left-3 px-3 py-1 text-xs font-bold rounded-full shadow-sm"
+                :class="getStatusBadgeClass(kitten.status)"
+              >
+                {{ getStatusBadgeText(kitten.status) }}
+              </span>
+            </div>
 
-    <div class="more-button-container">
-      <RouterLink to="/adoption" class="see-more-btn">
-        Lihat Lainnya
-      </RouterLink>
+            <!-- Card Content -->
+            <div class="p-5 flex flex-col justify-between flex-grow space-y-3">
+              <div>
+                <p class="text-xs font-bold text-[#77716B] uppercase tracking-wider flex items-center gap-1 mb-1">
+                  <span>📍</span> {{ kitten.location.toUpperCase() }}
+                </p>
+
+                <h3 class="text-xl font-extrabold text-[#2D2926] group-hover:text-[#E9823D] transition">
+                  {{ kitten.name }}
+                </h3>
+
+                <p class="text-xs font-semibold text-[#77716B] mt-1">
+                  🐱 {{ kitten.age }} • {{ kitten.gender === 'Jantan' ? '♂ Jantan' : '♀ Betina' }}
+                </p>
+              </div>
+
+              <!-- Button CTA -->
+              <div class="pt-3 border-t border-[#E9E0D5]/60">
+                <button
+                  type="button"
+                  @click.stop="goToAdoptDetailById(kitten.id)"
+                  class="btn btn-outline w-full py-2.5 text-xs font-bold group-hover:bg-[#E9823D] group-hover:text-white group-hover:border-[#E9823D] transition flex items-center justify-center gap-1.5"
+                >
+                  <span>Lihat Detail</span>
+                  <span>&rarr;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </SwiperSlide>
+      </Swiper>
+
+      <!-- Bottom Action -->
+      <div class="text-center mt-6">
+        <RouterLink
+          to="/adoption"
+          class="btn btn-primary px-8 py-3.5 rounded-xl text-sm sm:text-base font-bold shadow-md hover:shadow-lg inline-flex items-center gap-2 transition"
+        >
+          <span>Lihat Semua Kucing Adopsi</span>
+          <span>&rarr;</span>
+        </RouterLink>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Navigation, Pagination } from 'swiper/modules';
-import { withBase } from '@/utils/paths'
+import { ref } from 'vue'
+import { useRouter, RouterLink } from 'vue-router'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
+import catsData from '@/data/cats'
 
-// Import style Swiper
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
-const router = useRouter();
-const currentRealIndex = ref(0); // State untuk menyimpan index slide aktif
+const router = useRouter()
+const kittens = ref(catsData)
 
-// Data Kittens dengan ID unik
-const kittens = [
-  { id: 1, name: 'Milo', age: '7 Bulan', image: 'https://i.imgur.com/Gj3Hj0c.jpg' },
-  { id: 2, name: 'Luna', age: '1 Tahun', image: 'https://i.imgur.com/s7ZzvED.jpg' },
-  { id: 3, name: 'Oreo', age: '5 Bulan', image: 'https://i.imgur.com/jf2rFj3.jpg' },
-  { id: 4, name: 'Simba', age: '2 Tahun', image: 'https://i.imgur.com/szU2Q7I.jpg' },
-  { id: 5, name: 'Nala', age: '9 Bulan', image: 'https://i.imgur.com/6rRZQlx.jpg' },
-];
-
-// Event handler saat slide berubah (loop-compatible)
-const onRealIndexChange = (swiper) => {
-  currentRealIndex.value = swiper.realIndex;
-};
-
-// Fungsi navigasi dinamis ke halaman detail
-const goToAdoptDetail = () => {
-  const activeKitten = kittens[currentRealIndex.value];
-  if (activeKitten && activeKitten.id) {
-    // Contoh hasil: /adopt-now/102
-    router.push(`/adopt-now/${activeKitten.id}`);
-  } else {
-    console.error("Data kitten tidak ditemukan untuk index ini.");
-  }
-};
-</script>
-<style scoped>
-.adopt-slider {
-  text-align: center;
-  background: #f7f1e8;
-  padding: 40px 0;
+const goToAdoptDetailById = (id) => {
+  router.push(`/adopt-now/${id}`)
 }
+
+const getStatusBadgeClass = (status) => {
+  if (status === 'Tersedia') return 'bg-[#3D9B6D] text-white'
+  if (status === 'Proses Adopsi') return 'bg-[#D99A2B] text-white'
+  return 'bg-[#15B2D5] text-white'
+}
+
+const getStatusBadgeText = (status) => {
+  if (status === 'Tersedia') return '🟢 Tersedia'
+  if (status === 'Proses Adopsi') return '🟡 Proses Adopsi'
+  return '🔵 Dalam Perawatan'
+}
+</script>
+
+<style scoped>
 .mySwiper {
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  padding-bottom: 50px;
 }
-
-/* posisi slide tetap seimbang */
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-/* ukuran dan efek skala */
-.kitten-slide {
-  transform: scale(0.8);
-  opacity: 0.6;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-.swiper-slide-active {
-  transform: scale(1.15);
-  opacity: 1;
-  z-index: 2;
-}
-
-.swiper-slide-prev,
-.swiper-slide-next {
-  transform: scale(0.9);
-  opacity: 0.8;
-  z-index: 1;
-}
-
-/* gaya kartu kitten */
-.kitten-card {
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 200px;
-  height: 240px;
-}
-
-.kitten-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.kitten-info {
-  padding: 10px 0;
-}
-
-.kitten-info .age {
-  font-size: 12px;
-  color: #555;
-  margin: 0;
-}
-
-.kitten-info .name {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0;
-}
-
-.title {
-  font-size: 28px;
-  font-weight: 800;
-  margin-top: 30px;
-}
-
-.cat-button {
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin-top: 10px;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.cat-button img {
-  /* Atur ukuran gambar tombol di sini */
-  width: 80px; 
-  height: auto;
-}
-
-.cat-button:hover {
-  transform: scale(1.1); /* Efek hover membesar */
-  opacity: 0.9;
-}
-
-.more-button-container {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.see-more-btn {
-  display: inline-block;
-  background-color: #ED8B3C;
-  color: white;
-  padding: 12px 40px;
-  border-radius: 9999px;
-  text-decoration: none;
-  font-weight: 700;
-  transition: all 0.3s ease;
-}
-
-.see-more-btn:hover {
-  background-color: #d97a2b; /* Warna sedikit lebih gelap saat di-hover */
-  transform: translateY(-3px); /* Tombol naik sedikit saat di-hover */
-  box-shadow: 0 6px 12px rgba(237, 139, 60, 0.4); /* Bayangan lebih tegas saat hover */
-}
-
-.see-more-btn:active {
-  transform: translateY(-1px); /* Efek tekan saat diklik */
-  box-shadow: 0 2px 4px rgba(237, 139, 60, 0.3);
-}
-
 </style>

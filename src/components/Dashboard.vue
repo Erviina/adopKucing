@@ -169,6 +169,9 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const catData = ref([
   { id: "#001", img: "https://i.imgur.com/Gj3Hj0c.jpg", name: "Milo", breed: "Persian Breeds", age: "7 Month", location: "Bandung" },
@@ -202,16 +205,16 @@ const changeType = (newType) => {
 };
 
 const handleAction = (action, item) => {
-  alert(`Anda memilih ${action} untuk ${item.name} (${item.id})`);
+  if (action === 'Detail') {
+    router.push('/adoption')
+  }
 };
 
 const handleReport = () => {
-  alert("Ada laporan baru! Admin akan segera meninjau data report.");
-  console.log("Report dikirim ke admin ✅");
+  router.push('/report-rescue')
 };
 
 const handleDonate = () => {
-  alert("Terima kasih atas donasinya! Admin akan mencatat transaksi ini.");
-  console.log("Donasi diterima oleh admin 💚");
+  router.push('/donate')
 };
 </script>

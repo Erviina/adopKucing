@@ -1,134 +1,179 @@
 <template>
-  <div
-    class="min-h-screen w-full bg-repeat"
-    :style="{
-      backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: '60px'
-    }"
-  >
-    <Navbar />
-
-    <div class="flex justify-center items-start pt-40 relative">
-      <!-- Gambar Kucing -->
-      <img
-        :src="catImage"
-        alt="cat"
-        class="absolute top-17 right-[35%] -translate-x-1/2 w-50 object-contain z-10"
-      />
-
-      <!-- Card Sign Up -->
-      <div
-        class="bg-[#f7d36a] w-[454px] rounded-xl shadow-lg px-1 pt-20 pb-6 text-center relative"
-      >
-        <h2 class="font-bold text-xl mb-6">CREATE ACCOUNT</h2>
-
-        <!-- Tombol Social Media -->
-        <div class="flex w-full gap-2 mb-7">
-          <button
-            v-for="button in socialButtons"
-            :key="button.name"
-            class="flex items-center justify-center gap-2 bg-gray-200 border border-gray-300 w-1/2 py-1 px-2 rounded-lg text-sm hover:bg-gray-100 transition shadow-sm"
-          >
-            <img :src="button.icon" :alt="button.name" class="w-6 h-5" />
-            {{ button.label }} 
-          </button>
+  <main class="min-h-screen bg-[#F8F3EA] pt-24 pb-16 flex items-center justify-center">
+    <div class="container-custom max-w-md">
+      <!-- Card Register -->
+      <div class="card-custom bg-white p-6 sm:p-8 relative">
+        <div class="text-center mb-6">
+          <div class="w-14 h-14 bg-[#FFF0E4] rounded-full text-[#E9823D] flex items-center justify-center text-2xl mx-auto mb-3">
+            🐾
+          </div>
+          <h1 class="text-2xl font-bold text-[#2D2926]">Buat Akun AdopKucing</h1>
+          <p class="text-xs text-[#77716B] mt-1">
+            Daftar untuk mengakses fitur adopsi, laporan rescue, dan donasi.
+          </p>
         </div>
 
-        <!-- Garis Pemisah -->
-        <div class="flex items-center justify-center gap-3 my-4">
-          <span class="h-px bg-gray-500 w-16"></span>
-          <span class="text-gray-900 text-xl font-semibold">OR</span>
-          <span class="h-px bg-gray-500 w-16"></span>
+        <!-- Success Notification -->
+        <div v-if="successMsg" class="mb-4 p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold rounded-xl">
+          {{ successMsg }}
         </div>
 
-        <!-- Form Input -->
-        <form @submit.prevent="handleSignup" class="text-left">
-          <div
-            v-for="field in formFields"
-            :key="field.model"
-            class="flex flex-col items-center"
-          >
+        <form @submit.prevent="handleSignup" class="space-y-4">
+          <!-- Nama Lengkap -->
+          <div>
+            <label class="block text-xs font-bold text-[#2D2926] uppercase mb-1">Nama Lengkap *</label>
             <input
-              :type="field.type"
-              v-model="formData[field.model]"
-              :placeholder="field.placeholder"
-              class="w-[90%] bg-transparent border-b border-gray-500 py-2 mb-6 outline-none focus:border-gray-900 transition"
-              required
+              v-model="form.name"
+              type="text"
+              placeholder="Masukkan nama lengkap Anda"
+              :class="{'input-error': errors.name}"
             />
+            <p v-if="errors.name" class="text-xs text-red-500 mt-1 font-medium">{{ errors.name }}</p>
           </div>
 
-          <div class="flex justify-center flex-col">
+          <!-- Email -->
+          <div>
+            <label class="block text-xs font-bold text-[#2D2926] uppercase mb-1">Alamat Email *</label>
+            <input
+              v-model="form.email"
+              type="email"
+              placeholder="nama@email.com"
+              :class="{'input-error': errors.email}"
+            />
+            <p v-if="errors.email" class="text-xs text-red-500 mt-1 font-medium">{{ errors.email }}</p>
+          </div>
+
+          <!-- Password -->
+          <div>
+            <label class="block text-xs font-bold text-[#2D2926] uppercase mb-1">Kata Sandi (Min. 6 Karakter) *</label>
+            <input
+              v-model="form.password"
+              type="password"
+              placeholder="••••••••"
+              :class="{'input-error': errors.password}"
+            />
+            <p v-if="errors.password" class="text-xs text-red-500 mt-1 font-medium">{{ errors.password }}</p>
+          </div>
+
+          <!-- Konfirmasi Password -->
+          <div>
+            <label class="block text-xs font-bold text-[#2D2926] uppercase mb-1">Konfirmasi Kata Sandi *</label>
+            <input
+              v-model="form.confirmPassword"
+              type="password"
+              placeholder="••••••••"
+              :class="{'input-error': errors.confirmPassword}"
+            />
+            <p v-if="errors.confirmPassword" class="text-xs text-red-500 mt-1 font-medium">{{ errors.confirmPassword }}</p>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-2">
             <button
               type="submit"
-              class="bg-gray-200 text-gray-800 w-[50%] py-3 rounded-md hover:bg-gray-300 transition shadow-lg mx-auto"
+              :disabled="isSubmitting"
+              class="btn btn-primary w-full py-3 text-sm font-bold shadow-md hover:shadow-lg rounded-xl"
             >
-              CREATE ACCOUNT
+              <span v-if="isSubmitting" class="inline-flex items-center gap-2">
+                <span>⏳</span> Memproses Pendaftaran...
+              </span>
+              <span v-else>Daftar Akun Baru</span>
             </button>
           </div>
         </form>
 
-        <p class="text-sm mt-5">
-          Already have an account?
-          <router-link
-            to="/login"
-            class="font-bold underline text-gray-900 hover:text-black"
-          >
-            Login
+        <!-- Demo Disclaimer -->
+        <div class="mt-6 p-3 bg-[#F8F3EA] rounded-xl border border-[#E9E0D5] text-[11px] text-[#77716B]">
+          ℹ️ <strong>Mode Demo Lokal:</strong> Data pendaftaran disimpan pada <code>localStorage</code> browser ini.
+        </div>
+
+        <p class="text-xs text-center text-[#77716B] mt-5">
+          Sudah memiliki akun?
+          <router-link to="/login" class="font-bold text-[#E9823D] hover:underline">
+            Masuk Sekarang
           </router-link>
         </p>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup>
-import Navbar from '@/components/navbar.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { withBase } from '@/utils/paths'
+import { saveUser, getUsers } from '@/utils/storage'
 
 const router = useRouter()
 
-//Background dan Gambar
-const backgroundImage = withBase('images/home/Vector.svg')
-const catImage = withBase('images/Asset Signup/kucing-report-button.png')
-
-// Data tombol social media
-const socialButtons = [
-  {
-    name: 'google',
-    label: 'Sign up with Google',
-    icon: withBase('images/Asset Signup/google-removebg-preview.png')
-  },
-  {
-    name: 'facebook',
-    label: 'Sign up with Facebook',
-    icon: withBase('images/Asset Signup/facebook-removebg-preview.png')
-  }
-]
-
-//Data input form
-const formFields = [
-  { model: 'name', type: 'text', placeholder: 'Full Name' },
-  { model: 'email', type: 'email', placeholder: 'Email Address' },
-  { model: 'password', type: 'password', placeholder: 'Password' }
-]
-
-//State data form
-const formData = ref({
+const form = ref({
   name: '',
   email: '',
-  password: ''
+  password: '',
+  confirmPassword: ''
 })
 
-// Fungsi Sign Up
-const handleSignup = () => {
-  const { name, email, password } = formData.value
-  if (name && email && password) {
-    alert('Account created successfully!')
-    router.push('/login')
-  } else {
-    alert('Please fill all fields!')
+const errors = ref({})
+const successMsg = ref('')
+const isSubmitting = ref(false)
+
+const validateForm = () => {
+  const newErrors = {}
+
+  if (!form.value.name.trim()) {
+    newErrors.name = 'Nama lengkap wajib diisi.'
   }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!form.value.email.trim()) {
+    newErrors.email = 'Alamat email wajib diisi.'
+  } else if (!emailRegex.test(form.value.email.trim())) {
+    newErrors.email = 'Format email tidak valid.'
+  } else {
+    // Check if email already registered
+    const existing = getUsers().find(u => u.email.toLowerCase() === form.value.email.trim().toLowerCase())
+    if (existing) {
+      newErrors.email = 'Email ini sudah terdaftar. Silakan login.'
+    }
+  }
+
+  if (!form.value.password) {
+    newErrors.password = 'Kata sandi wajib diisi.'
+  } else if (form.value.password.length < 6) {
+    newErrors.password = 'Kata sandi minimal 6 karakter.'
+  }
+
+  if (!form.value.confirmPassword) {
+    newErrors.confirmPassword = 'Konfirmasi kata sandi wajib diisi.'
+  } else if (form.value.confirmPassword !== form.value.password) {
+    newErrors.confirmPassword = 'Konfirmasi kata sandi tidak cocok.'
+  }
+
+  errors.value = newErrors
+  return Object.keys(newErrors).length === 0
+}
+
+const handleSignup = () => {
+  if (!validateForm() || isSubmitting.value) return
+
+  isSubmitting.value = true
+
+  const newUser = {
+    name: form.value.name.trim(),
+    username: form.value.name.trim().split(' ')[0],
+    email: form.value.email.trim().toLowerCase(),
+    password: form.value.password,
+    phone: '081234567890',
+    joinedAt: new Date().toISOString()
+  }
+
+  saveUser(newUser)
+  successMsg.value = 'Akun berhasil dibuat! Mengalihkan ke halaman login...'
+
+  setTimeout(() => {
+    isSubmitting.value = false
+    router.push('/login')
+  }, 1200)
 }
 </script>
+
+<style scoped></style>

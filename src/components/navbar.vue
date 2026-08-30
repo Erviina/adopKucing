@@ -1,53 +1,95 @@
 <template>
   <header
-    :class="[ 
-      'fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out bg-white/30 backdrop-blur-xl border-b border-white/20 shadow-sm',
-      scrolledDown ? 'translate-y-0' : '-translate-y-full'
+    :class="[
+      'fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-[#E9E0D5]',
+      isScrolled ? 'shadow-md py-1' : 'shadow-sm py-2'
     ]"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <!-- Brand -->
-        <router-link to="/" class="flex items-center space-x-2">
+        <router-link to="/" class="flex items-center space-x-2.5 group">
           <img
             :src="withBase('images/navbar/logoKucing.png')"
-            alt="Logo"
-            class="h-10 w-10 rounded-full bg-gray-200 object-contain"
+            alt="AdopKucing Logo"
+            class="h-10 w-10 rounded-full bg-[#FFF0E4] object-contain p-0.5 border border-[#E9E0D5] transition-transform duration-300 group-hover:scale-105"
           />
-          <span class="text-xl font-semibold text-gray-800 leading-none">Adopt Center</span>
+          <span class="text-xl font-bold text-[#2D2926] group-hover:text-[#E9823D] transition-colors leading-none tracking-tight">
+            Adop<span class="text-[#E9823D]">Kucing</span>
+          </span>
         </router-link>
 
         <!-- Nav Links (Desktop) -->
-        <nav class="hidden md:flex space-x-6">
-          <router-link to="/" class="text-gray-900 hover:text-gray-800 transition">Home</router-link>
-          <router-link to="/adoption" class="text-gray-900 hover:text-gray-800 transition">Adopt</router-link>
+        <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <router-link
+            to="/"
+            exact
+            exact-active-class="bg-[#FFF0E4] text-[#E9823D] font-semibold"
+            class="px-3 py-2 rounded-lg text-[#77716B] hover:text-[#E9823D] hover:bg-[#FFF0E4]/60 transition text-sm font-medium"
+          >
+            Beranda
+          </router-link>
 
-          <!-- Ganti About & FAQ jadi tombol -->
-          <button @click="scrollToSection('about')" class="text-gray-900 hover:text-gray-800 transition">
+          <router-link
+            to="/adoption"
+            active-class="bg-[#FFF0E4] text-[#E9823D] font-semibold"
+            class="px-3 py-2 rounded-lg text-[#77716B] hover:text-[#E9823D] hover:bg-[#FFF0E4]/60 transition text-sm font-medium"
+          >
+            Adopsi
+          </router-link>
+
+          <router-link
+            to="/report-rescue"
+            active-class="bg-[#FFF0E4] text-[#E9823D] font-semibold"
+            class="px-3 py-2 rounded-lg text-[#77716B] hover:text-[#E9823D] hover:bg-[#FFF0E4]/60 transition text-sm font-medium"
+          >
+            Report & Rescue
+          </router-link>
+
+          <router-link
+            to="/donate"
+            active-class="bg-[#FFF0E4] text-[#E9823D] font-semibold"
+            class="px-3 py-2 rounded-lg text-[#77716B] hover:text-[#E9823D] hover:bg-[#FFF0E4]/60 transition text-sm font-medium"
+          >
+            Donasi
+          </router-link>
+
+          <router-link
+            to="/news"
+            active-class="bg-[#FFF0E4] text-[#E9823D] font-semibold"
+            class="px-3 py-2 rounded-lg text-[#77716B] hover:text-[#E9823D] hover:bg-[#FFF0E4]/60 transition text-sm font-medium"
+          >
+            Berita
+          </router-link>
+
+          <button
+            @click="scrollToSection('about')"
+            class="px-3 py-2 rounded-lg text-[#77716B] hover:text-[#E9823D] hover:bg-[#FFF0E4]/60 transition text-sm font-medium cursor-pointer"
+          >
             About Us
           </button>
-          <button @click="scrollToSection('faq')" class="text-gray-900 hover:text-gray-800 transition"> 
+
+          <button
+            @click="scrollToSection('faq')"
+            class="px-3 py-2 rounded-lg text-[#77716B] hover:text-[#E9823D] hover:bg-[#FFF0E4]/60 transition text-sm font-medium cursor-pointer"
+          >
             FAQ
           </button>
-
-          <router-link to="/donate" class="text-gray-900 hover:text-gray-800 transition">Donate</router-link>
-          <router-link to="/dashboard" class="text-gray-900 hover:text-gray-800 transition">Dashboard</router-link>
-          <router-link to="/all-pages" class="text-gray-900 hover:text-gray-800 transition">Semua Halaman</router-link>
         </nav>
 
         <!-- Right Side (Desktop) -->
-        <div class="hidden md:flex items-center space-x-4">
+        <div class="hidden md:flex items-center space-x-3">
           <!-- Kalau BELUM login -->
           <template v-if="!isLoggedIn && !isAuthPage">
             <router-link
               to="/login"
-              class="px-4 py-1.5 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
+              class="btn btn-primary text-xs lg:text-sm px-4 py-2"
             >
               Log in
             </router-link>
             <router-link
               to="/sign-up"
-              class="px-4 py-1.5 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-50 transition"
+              class="btn btn-outline text-xs lg:text-sm px-4 py-2"
             >
               Sign up
             </router-link>
@@ -55,27 +97,36 @@
 
           <!-- Kalau SUDAH login -->
           <template v-else-if="isLoggedIn">
-            <div class="relative group flex items-center space-x-2">
+            <div class="relative group flex items-center space-x-2 py-1">
               <img
                 :src="withBase('images/home/Cat 9.jpg')"
-                alt="User"
-                class="h-8 w-8 rounded-full bg-gray-300 object-cover cursor-pointer"
+                alt="User Avatar"
+                class="h-9 w-9 rounded-full bg-[#FFF0E4] border border-[#E9E0D5] object-cover cursor-pointer shadow-sm"
               />
-              <span class="text-gray-900 font-medium cursor-pointer">User</span>
+              <span class="text-[#2D2926] font-semibold text-sm cursor-pointer group-hover:text-[#E9823D] transition">
+                {{ currentUser?.name || 'User' }}
+              </span>
 
-              <!-- Dropdown -->
+              <!-- Dropdown Menu -->
               <div
-                class="absolute right-0 top-10 w-36 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                class="absolute right-0 top-full mt-1 w-44 bg-white rounded-xl shadow-lg border border-[#E9E0D5] py-1.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
               >
                 <router-link
                   to="/profile"
-                  class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-t-xl"
+                  class="block px-4 py-2 text-sm text-[#2D2926] hover:bg-[#FFF0E4] hover:text-[#E9823D] transition"
                 >
-                  Profile
+                  Profile Saya
                 </router-link>
+                <router-link
+                  to="/dashboard"
+                  class="block px-4 py-2 text-sm text-[#2D2926] hover:bg-[#FFF0E4] hover:text-[#E9823D] transition"
+                >
+                  Dashboard
+                </router-link>
+                <div class="border-t border-[#E9E0D5] my-1"></div>
                 <button
                   @click="logout"
-                  class="w-full text-left block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-b-xl"
+                  class="w-full text-left block px-4 py-2 text-sm text-[#D85A4F] hover:bg-[#FFF0E4] transition font-medium"
                 >
                   Logout
                 </button>
@@ -85,13 +136,18 @@
         </div>
 
         <!-- Mobile Menu Button -->
-        <button @click="mobileOpen = !mobileOpen" class="md:hidden text-gray-200 focus:outline-none">
+        <button
+          @click="mobileOpen = !mobileOpen"
+          aria-label="Toggle navigation menu"
+          :aria-expanded="mobileOpen"
+          class="md:hidden p-2 rounded-lg text-[#2D2926] hover:text-[#E9823D] hover:bg-[#FFF0E4] transition focus:outline-none"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            class="w-7 h-7"
+            class="w-6 h-6"
           >
             <path
               v-if="!mobileOpen"
@@ -112,37 +168,103 @@
       </div>
     </div>
 
-    <!-- Mobile Menu -->
+    <!-- Mobile Navigation Drawer -->
     <transition name="slide-fade">
       <div
         v-if="mobileOpen"
-        class="md:hidden bg-white/30 backdrop-blur-xl border-t border-white/20 shadow-md pb-3"
+        class="md:hidden bg-white/95 backdrop-blur-md border-t border-[#E9E0D5] shadow-lg"
       >
-        <nav class="flex flex-col px-4 py-3 space-y-2">
-          <router-link to="/" class="text-gray-900 hover:text-gray-800 transition">Home</router-link>
-          <router-link to="/adoption" class="text-gray-900 hover:text-gray-800 transition">Adopt</router-link>
-          
-          <!-- Ganti dengan scroll function -->
-          <button @click="handleMobileClick('about')" class="text-gray-900 text-left hover:text-gray-800 transition">
+        <nav class="flex flex-col px-4 py-3 space-y-1">
+          <router-link
+            to="/"
+            exact
+            exact-active-class="bg-[#FFF0E4] text-[#E9823D] font-semibold"
+            class="block px-4 py-2.5 rounded-lg text-[#2D2926] hover:text-[#E9823D] hover:bg-[#FFF0E4] transition text-base font-medium"
+          >
+            Beranda
+          </router-link>
+
+          <router-link
+            to="/adoption"
+            active-class="bg-[#FFF0E4] text-[#E9823D] font-semibold"
+            class="block px-4 py-2.5 rounded-lg text-[#2D2926] hover:text-[#E9823D] hover:bg-[#FFF0E4] transition text-base font-medium"
+          >
+            Adopsi
+          </router-link>
+
+          <router-link
+            to="/report-rescue"
+            active-class="bg-[#FFF0E4] text-[#E9823D] font-semibold"
+            class="block px-4 py-2.5 rounded-lg text-[#2D2926] hover:text-[#E9823D] hover:bg-[#FFF0E4] transition text-base font-medium"
+          >
+            Report & Rescue
+          </router-link>
+
+          <router-link
+            to="/donate"
+            active-class="bg-[#FFF0E4] text-[#E9823D] font-semibold"
+            class="block px-4 py-2.5 rounded-lg text-[#2D2926] hover:text-[#E9823D] hover:bg-[#FFF0E4] transition text-base font-medium"
+          >
+            Donasi
+          </router-link>
+
+          <router-link
+            to="/news"
+            active-class="bg-[#FFF0E4] text-[#E9823D] font-semibold"
+            class="block px-4 py-2.5 rounded-lg text-[#2D2926] hover:text-[#E9823D] hover:bg-[#FFF0E4] transition text-base font-medium"
+          >
+            Berita
+          </router-link>
+
+          <button
+            @click="handleMobileClick('about')"
+            class="w-full text-left px-4 py-2.5 rounded-lg text-[#2D2926] hover:text-[#E9823D] hover:bg-[#FFF0E4] transition text-base font-medium cursor-pointer"
+          >
             About Us
           </button>
-          <button @click="handleMobileClick('faq')" class="text-gray-900 text-left hover:text-gray-800 transition">
+
+          <button
+            @click="handleMobileClick('faq')"
+            class="w-full text-left px-4 py-2.5 rounded-lg text-[#2D2926] hover:text-[#E9823D] hover:bg-[#FFF0E4] transition text-base font-medium cursor-pointer"
+          >
             FAQ
           </button>
 
-          <router-link to="/donate" class="text-gray-900 hover:text-gray-800 transition">Donate</router-link>
-<router-link to="/dashboard" class="text-gray-900 hover:text-gray-800 transition">Dashboard</router-link>
-<router-link to="/all-pages" class="text-gray-900 hover:text-gray-800 transition">Semua Halaman</router-link>
-          <!-- Auth buttons (Mobile) -->
-          <div v-if="!isLoggedIn && !isAuthPage" class="pt-3 border-t border-black">
-            <router-link to="/login" class="block py-2 text-blue-600 font-medium">Login</router-link>
-            <router-link to="/sign-up" class="block py-2 text-blue-600 font-medium">Sign Up</router-link>
+          <!-- Mobile Auth Buttons / User State -->
+          <div v-if="!isLoggedIn && !isAuthPage" class="pt-3 mt-2 border-t border-[#E9E0D5] flex flex-col space-y-2">
+            <router-link
+              to="/login"
+              class="btn btn-primary w-full text-center py-2.5"
+            >
+              Log in
+            </router-link>
+            <router-link
+              to="/sign-up"
+              class="btn btn-outline w-full text-center py-2.5"
+            >
+              Sign up
+            </router-link>
           </div>
 
-          <!-- Logged In Menu (Mobile) -->
-          <div v-else-if="isLoggedIn" class="pt-3 border-t border-black">
-            <router-link to="/profile" class="block py-2 text-gray-800 font-medium">Profile</router-link>
-            <button @click="logout" class="block w-full text-left py-2 text-gray-800 font-medium">Logout</button>
+          <div v-else-if="isLoggedIn" class="pt-3 mt-2 border-t border-[#E9E0D5] space-y-1">
+            <router-link
+              to="/profile"
+              class="block px-4 py-2.5 rounded-lg text-[#2D2926] hover:text-[#E9823D] hover:bg-[#FFF0E4] transition text-base font-medium"
+            >
+              Profile Saya ({{ currentUser?.name }})
+            </router-link>
+            <router-link
+              to="/dashboard"
+              class="block px-4 py-2.5 rounded-lg text-[#2D2926] hover:text-[#E9823D] hover:bg-[#FFF0E4] transition text-base font-medium"
+            >
+              Dashboard
+            </router-link>
+            <button
+              @click="logout"
+              class="w-full text-left block px-4 py-2.5 rounded-lg text-[#D85A4F] hover:bg-[#FFF0E4] transition text-base font-semibold"
+            >
+              Logout
+            </button>
           </div>
         </nav>
       </div>
@@ -154,28 +276,29 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { withBase } from '@/utils/paths'
+import { getCurrentUser, logoutUser } from '@/utils/storage'
 
 const router = useRouter()
 const route = useRoute()
 
-const scrolledDown = ref(true)
-const lastScrollY = ref(0)
+const isScrolled = ref(false)
 const mobileOpen = ref(false)
-const isLoggedIn = ref(true)
+const isLoggedIn = ref(false)
+const currentUser = ref(null)
 
 const handleScroll = () => {
-  const currentY = window.scrollY
-  scrolledDown.value = !(currentY > lastScrollY.value && currentY > 100)
-  lastScrollY.value = currentY
+  isScrolled.value = window.scrollY > 20
 }
 
 const checkLoginState = () => {
-  const stored = localStorage.getItem('isLoggedIn')
-  isLoggedIn.value = stored === 'true'
+  const user = getCurrentUser()
+  isLoggedIn.value = !!user
+  currentUser.value = user
 }
 
 onMounted(() => {
   checkLoginState()
+  handleScroll()
   window.addEventListener('scroll', handleScroll)
   window.addEventListener('login-state-changed', checkLoginState)
 })
@@ -191,7 +314,7 @@ watch(route, () => {
   mobileOpen.value = false
 })
 
-// scroll function
+// Scroll function
 const scrollToSection = async (sectionId) => {
   if (route.path !== '/') {
     await router.push({ path: '/', query: { section: sectionId } })
@@ -201,16 +324,16 @@ const scrollToSection = async (sectionId) => {
   }
 }
 
-// buat mobile biar auto-close
+// Mobile scroll click handler
 const handleMobileClick = async (sectionId) => {
   mobileOpen.value = false
   await scrollToSection(sectionId)
 }
 
-// logout
+// Logout handler
 const logout = () => {
-  localStorage.removeItem('isLoggedIn')
-  isLoggedIn.value = false
+  logoutUser()
+  mobileOpen.value = false
   router.push('/')
 }
 </script>

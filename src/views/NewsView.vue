@@ -1,66 +1,87 @@
 <template>
-  <section id="news" class="py-16 bg-gray-50 mt-5">
-    <div class="container mx-auto px-4 lg:px-8">
-      <div class="text-center mb-10">
-        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 tracking-tight">
-          News About Us
+  <main class="min-h-screen bg-[#F8F3EA] pt-24 pb-16">
+    <div class="container-custom max-w-4xl">
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 bg-[#FFF0E4] border border-[#E9E0D5] rounded-full text-[#C96A29] text-xs font-semibold uppercase tracking-wider mb-3">
+          📰 Kabar & Komunitas
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#2D2926] mb-3">
+          Berita & Kisah AdopKucing
         </h1>
-        <p class="text-gray-500 mt-2 text-sm sm:text-base">
-          Get the latest stories from our cat community
+        <p class="text-[#77716B] text-sm sm:text-base">
+          Dapatkan kisah penyelamatan terbaru, tips perawatan, dan cerita inspiratif dari komunitas pencinta kucing.
         </p>
       </div>
 
+      <!-- Toast Notification Copy Feedback -->
+      <transition name="fade">
+        <div v-if="toastMsg" class="fixed bottom-6 right-6 z-50 bg-[#2D2926] text-white text-xs font-bold px-4 py-3 rounded-xl shadow-xl flex items-center gap-2">
+          <span>✅</span> {{ toastMsg }}
+        </div>
+      </transition>
+
       <!-- Daftar berita -->
-      <div class="space-y-8">
+      <div class="space-y-6">
         <div
           v-for="(news, index) in newsList"
           :key="index"
-          class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all overflow-hidden border border-gray-100 cursor-pointer"
+          class="card-custom bg-white overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer border border-[#E9E0D5]"
           @click="openPopup(news)"
         >
           <div class="flex flex-col md:flex-row">
-            <div class="md:w-[40%] relative">
+            <div class="md:w-5/12 relative">
               <img
                 :src="news.image"
-                alt="News image"
-                class="w-[60%] h-56 md:h-full object-cover"
+                :alt="news.title"
+                class="w-full h-52 md:h-full object-cover"
               />
             </div>
-            <div class="md:w-[60%] flex flex-col p-6 justify-start">
-              <h2 class="font-semibold text-gray-800 text-lg sm:text-xl lg:text-2xl mb-2">
-                {{ news.title }}
-              </h2>
-              <p class="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed">
-                {{ news.desc }}
-              </p>
+            <div class="md:w-7/12 flex flex-col p-6 justify-between">
+              <div>
+                <span class="text-[11px] font-bold text-[#E9823D] uppercase tracking-wider block mb-1">
+                  {{ news.category || 'Rescue Story' }}
+                </span>
+                <h2 class="font-bold text-[#2D2926] text-lg sm:text-xl mb-2 hover:text-[#E9823D] transition">
+                  {{ news.title }}
+                </h2>
+                <p class="text-[#77716B] text-xs sm:text-sm leading-relaxed">
+                  {{ news.desc }}
+                </p>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-[#E9E0D5]/60 flex items-center justify-between text-xs text-[#77716B]">
+                <span>🕒 {{ news.date || '30 Aug 2026' }}</span>
+                <span class="font-semibold text-[#E9823D]">Baca Selengkapnya &rarr;</span>
+              </div>
             </div>
           </div>
 
-          <!-- Aksi -->
-          <div class="flex flex-wrap items-center justify-between px-6 py-3 border-t border-gray-100 bg-gray-50" @click.stop>
-            <div class="flex items-center gap-3 text-gray-600 text-sm sm:text-base">
-              <button @click.stop="toggleLike(index)" class="flex items-center gap-1 px-2 py-1 rounded-md hover:bg-gray-200">
-                ❤️ <span>{{ news.likes }}</span>
+          <!-- Aksi Interaktif -->
+          <div class="flex flex-wrap items-center justify-between px-6 py-3 border-t border-[#E9E0D5] bg-[#F8F3EA]/50" @click.stop>
+            <div class="flex items-center gap-3 text-xs font-semibold text-[#77716B]">
+              <button @click.stop="toggleLike(index)" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E9E0D5] hover:bg-[#FFF0E4] hover:text-[#E9823D] transition cursor-pointer">
+                <span>❤️</span> <span>{{ news.likes }}</span>
               </button>
 
-              <button @click.stop="openPopup(news)" class="flex items-center gap-1 px-2 py-1 rounded-md hover:bg-gray-200">
-                💬 <span>{{ news.comments.length }}</span>
+              <button @click.stop="openPopup(news)" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E9E0D5] hover:bg-[#FFF0E4] hover:text-[#E9823D] transition cursor-pointer">
+                <span>💬</span> <span>{{ news.comments.length }} Komentar</span>
               </button>
 
-              <button @click.stop="shareNews(news)" class="flex items-center gap-1 px-2 py-1 rounded-md hover:bg-gray-200">
-                🔗
+              <button @click.stop="shareNews(news)" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E9E0D5] hover:bg-[#FFF0E4] hover:text-[#E9823D] transition cursor-pointer" title="Bagikan Berita">
+                <span>🔗</span> Bagikan
               </button>
             </div>
 
-            <div class="flex gap-2 text-lg sm:text-xl md:text-2xl lg:text-2xl text-gray-700" @click.stop>
+            <div class="flex gap-2 text-base text-[#77716B]" @click.stop>
               <span
                 v-for="emoji in emojis"
                 :key="emoji.char"
-                class="hover:scale-110 transition-transform cursor-pointer flex items-center gap-1"
+                class="hover:scale-125 transition-transform cursor-pointer flex items-center gap-1 bg-white px-2 py-1 rounded-lg border border-[#E9E0D5]"
                 @click.stop="addReaction(index, emoji.char)"
               >
                 {{ emoji.char }}
-                <small v-if="news.reactions[emoji.char]">{{ news.reactions[emoji.char] }}</small>
+                <span v-if="news.reactions[emoji.char]" class="text-[10px] font-bold text-[#E9823D]">{{ news.reactions[emoji.char] }}</span>
               </span>
             </div>
           </div>
@@ -68,7 +89,7 @@
       </div>
     </div>
 
-    <!-- Reusable Popup -->
+    <!-- Reusable Popup Modal -->
     <NewsModal
       v-if="selectedNews"
       :visible="!!selectedNews"
@@ -76,7 +97,7 @@
       @close="selectedNews = null"
       @update-news="handleUpdateNews"
     />
-  </section>
+  </main>
 </template>
 
 <script setup>
@@ -85,28 +106,33 @@ import NewsModal from "../components/NewsPopUp.vue"
 import { withBase } from '@/utils/paths'
 
 const newsImage = withBase('images/home/Cat 9.jpg')
+const toastMsg = ref('')
 
 const newsList = ref([
   {
-    title: "Ada Kucing Kece",
-    desc: "Kucing ini baru saja memenangkan lomba kecantikan hewan tingkat nasional.",
+    title: "Kisah Rescue Milo: Dari Jalanan Hingga Punya Rumah Baru",
+    desc: "Milo ditemukan dalam kondisi sangat lemah di pinggir jalan. Berkat bantuan relawan rescue AdopKucing, kini ia telah pulih total dan diadopsi keluarga hangat.",
+    category: "Kisah Sukses",
+    date: "30 Aug 2026",
     image: newsImage,
-    likes: 20,
+    likes: 42,
     isLiked: false,
     comments: [
-      { user: "Mia", text: "Lucunyaaa 😻", likes: 2 },
-      { user: "Rafi", text: "Kucingnya mirip punyaku!", likes: 1 },
+      { user: "Mia", text: "Lucunyaaa 😻 Senang sekali melihat Milo bahagia!", likes: 5 },
+      { user: "Rafi", text: "Terima kasih relawan hebat AdopKucing!", likes: 3 },
     ],
     newComment: "",
     reactions: {},
   },
   {
-    title: "Kucing Diselamatkan dari Pohon",
-    desc: "Seekor kucing berhasil diselamatkan oleh tim damkar setelah terjebak dua hari.",
+    title: "Tim Rescue Berhasil Menyelamatkan Kucing Terjebak",
+    desc: "Seekor kucing terlantar berhasil diselamatkan dengan cepat setelah warga mengirimkan laporan lewat fitur Report & Rescue.",
+    category: "Penyelamatan Darurat",
+    date: "28 Aug 2026",
     image: newsImage,
     likes: 54,
     isLiked: false,
-    comments: [{ user: "Luna", text: "Terima kasih pahlawan damkar!", likes: 3 }],
+    comments: [{ user: "Luna", text: "Keren sekali tim respon cepatnya!", likes: 4 }],
     newComment: "",
     reactions: {},
   },
@@ -123,8 +149,17 @@ const toggleLike = (index) => {
 }
 
 const shareNews = (news) => {
-  navigator.clipboard.writeText(`https://catnews.com/article/${encodeURIComponent(news.title)}`)
-  alert("Link berita disalin ke clipboard!")
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(`https://adopkucing.com/news/${encodeURIComponent(news.title)}`)
+  }
+  showToast("Link artikel berita berhasil disalin!")
+}
+
+const showToast = (msg) => {
+  toastMsg.value = msg
+  setTimeout(() => {
+    toastMsg.value = ''
+  }, 2500)
 }
 
 const addReaction = (index, emoji) => {
@@ -144,3 +179,12 @@ const handleUpdateNews = (updated) => {
   }
 }
 </script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+</style>

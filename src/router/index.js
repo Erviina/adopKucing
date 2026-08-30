@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-// 1. Import halaman HomeView yang baru kamu buat
 import HomeView from '../views/HomeView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import AdoptNowView from '@/views/AdoptNowView.vue'
@@ -8,9 +7,9 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/', // Ini adalah URL root (halaman utama)
+      path: '/',
       name: 'home',
-      component: HomeView // 2. Tampilkan komponen HomeView saat URL '/' dibuka
+      component: HomeView
     },
     {
       path: '/dashboard',
@@ -23,56 +22,55 @@ const router = createRouter({
       component: AdoptNowView
     },
     {
-      path:'/terms',
-      name:'terms',
+      path: '/terms',
+      name: 'terms',
       component: () => import('../components/TermAndCondition.vue')
     },
     {
-      path:'/adoption',
-      name:'adoption',
+      path: '/adoption',
+      name: 'adoption',
       component: () => import('@/views/AdoptionView.vue'),
     },
     {
-      path:'/profile',
-      name:'profile',
+      path: '/profile',
+      name: 'profile',
       component: () => import('@/views/ProfileView.vue'),
     },
     {
-      path:'/news',
-      name:'news',
+      path: '/news',
+      name: 'news',
       component: () => import('@/views/NewsView.vue'),
     },
     {
-      path:'/report-rescue',
-      name:'report-rescue',
+      path: '/report-rescue',
+      name: 'report-rescue',
       component: () => import('@/views/ReportRescueView.vue'),
     },
     {
-      path:'/login',
-      name:'login',
+      path: '/login',
+      name: 'login',
       component: () => import('@/components/Login.vue'),
     },
     {
-      path:'/sign-up',
-      name:'sign-up',
+      path: '/sign-up',
+      name: 'sign-up',
       component: () => import('@/components/SignUp.vue'),
     },
     {
-      path:'/donate',
-      name:'donate',
+      path: '/donate',
+      name: 'donate',
       component: () => import('@/views/DonateView.vue'),
     },
     {
-      path:'/all-pages',
-      name:'all-pages',
+      path: '/all-pages',
+      name: 'all-pages',
       component: () => import('@/views/AllPagesView.vue'),
     },
-    // Kamu bisa menambahkan halaman lain di sini nanti, contoh:
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   component: () => import('../views/AboutView.vue')
-    // }
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: () => import('@/views/NotFoundView.vue')
+    }
   ]
 })
 
